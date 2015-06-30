@@ -113,6 +113,7 @@ class ContainerRequestWrapper {
 		if(!deployStreams) {
 			cmd.add(" source " + installPath + "/bin/streamsprofile.sh; ");
 			cmd.add(" ln -s " + installPath + " StreamsLink; ");
+			cmd.add(" export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:" + installPath + "/lib; ");
 		}
 		else {
 			cmd.add(" ls -lR > " + ApplicationConstants.LOG_DIR_EXPANSION_VAR + "/dir_contents_pre; ");
@@ -122,6 +123,7 @@ class ContainerRequestWrapper {
 			cmd.add(" source ./InfoSphereStreams/*/bin/streamsprofile.sh;");
 			cmd.add(" cat $PWD/InfoSphereStreams/.streams.version.dir | " +
 					" xargs -I '{}' ln -s '$PWD/InfoSphereStreams/{}'  StreamsLink;");
+			cmd.add(" export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/StreamsLink/lib; ");
 		}
 		cmd.add(" ls -lR > " + ApplicationConstants.LOG_DIR_EXPANSION_VAR + "/dir_contents; ");
 		cmd.add(" env > " + ApplicationConstants.LOG_DIR_EXPANSION_VAR + "/env ;");
